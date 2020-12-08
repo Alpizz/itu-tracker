@@ -49,7 +49,7 @@ main img
 main table
 {
     /* left-align contents */
-    text-align: left;
+    text-align: justify;
 }
 
 main tfoot
@@ -61,4 +61,12 @@ main thead
 {
     /* boldface tables' footers */
     font-weight: bold;
+}
+tr.pass
+{
+    background-color: aquamarine;
+}
+tr.fail
+{
+    background-color: coral;
 }

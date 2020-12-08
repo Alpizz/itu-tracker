@@ -45,8 +45,8 @@ def get_course_table(dep_code):
         df_list = df_list[2:]
         course_table = []
 
-        for df in df_list:
-            course_table.append(pd.DataFrame(df.values[1:], columns=df.values[0]))
+        for i, df in enumerate(df_list):
+            course_table.append((i, pd.DataFrame(df.values[1:], columns=df.values[0])))
         return course_table
     except:
         return apology("Department not found!")

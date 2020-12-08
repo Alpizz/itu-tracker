@@ -46,7 +46,7 @@ def index():
     tables_list = get_course_table(dep_code)
 
     return render_template("index.html", dep_code=dep_code, dep_name=dep_name,
-                            tables_list=tables_list, headers=tables_list[0].columns)
+                            tables_list=tables_list, headers=tables_list[0][1].columns)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():

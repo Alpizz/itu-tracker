@@ -3,32 +3,91 @@
 {% block title %}Dersler{% endblock %}
 
 {% block main %}
-        <h1>Work in progress.</h1>
-        <h2>Your department is <b>{{ dep_name }} ({{ dep_code }})</b></h2><br>
-        {% for table in tables_list %}
-                <table class="table table-striped">
-                        <thead>
-                                <tr>
-                                        <td>Course Code</td>
-                                        <td>Course Title</td>
-                                        <td>Credit</td>
-                                        <td>Semester</td>
-                                        <td>Success/Fail</td>
-                                </tr>
-                        </thead>
-                        <tbody>
-                                {% for id, (key, value) in enumerate(table.iterrows()) %}
-                                        <tr>
-                                                <td id="code{{key}}">{{ value['Course Code'] }}</td>
-                                                <td>{{ value['Course Title'] }}</td>
-                                                <td id="cred{{key}}">{{ value['Credit'] }}</td>
-                                                <td>{{ value['Semester'] }}</td>
-                                                <td class="btn btn-success">Success</td>
-                                                <td class="btn btn-danger">Fail</td>
-                                        </tr>
-                                {% endfor %}
-                        </tbody>
-                </table>
-        {% endfor %}
+<h1>Work in progress.</h1>
+<h2>Your department is <b>{{ dep_name }} ({{ dep_code }})</b></h2><br>
 
+<button id="gpa-calc" name="calc" type="button" class="btn btn-success">Calculate GPA</button><br>
+
+{% for i, table in tables_list %}
+<table id="table{{i}}" class="table">
+        <thead>
+                <tr>
+                        <td>Course Code</td>
+                        <td>Course Title</td>
+                        <td>Credit</td>
+                        <td>Semester</td>
+                        <td>GPA</td>
+                        <td>Cancel</td>
+                </tr>
+        </thead>
+        <tbody>
+                {% for key, value in table.iterrows() %}
+
+                <tr>
+                        <td name="code" id="code{{i}}-{{key}}">{{ value['Course Code'] }}</td>
+                        <td>{{ value['Course Title'] }}</td>
+                        <td name="credit" id="cred{{i}}-{{key}}">{{ value['Credit'] }}</td>
+                        <td>{{ value['Semester'] }}</td>
+                        <td>
+                                <select name="grade" id="grade{{i}}{{key}}">
+                                        <option hidden disabled selected value="NA">Letter Grade</option>
+                                        <option value="4">AA</option>
+                                        <option value="3.5">BA</option>
+                                        <option value="3">BB</option>
+                                        <option value="2.5">CB</option>
+                                        <option value="2">CC</option>
+                                        <option value="1.5">DC</option>
+                                        <option value="1">DD</option>
+                                        <option value="0">FF/VF</option>
+                                </select>
+                        </td>
+                        <td><button name="NO" type="button" class="btn btn-secondary">Clear</button></td>
+                </tr>
+
+                {% endfor %}
+        </tbody>
+</table>
+{% endfor %}
+<script>
+        var creditTotal = [];
+        var grossProduct = 0;
+        // Grading system
+        $('td select[name="grade"]').on('change', function () {
+
+                
+
+                var selectedGrade = $(this).find(':selected').val();
+                var selectedCredit = $(this).closest('tr').children('td')[2];
+
+                var grade = parseFloat(selectedGrade)
+                var credit = parseFloat(selectedCredit.innerHTML);
+
+                console.log("Credit: " + credit + " Grade: " + grade);
+                
+
+                
+
+                if (selectedGrade == '0') {
+                        $(this).closest('tr').removeClass('pass')
+                        $(this).closest('tr').addClass('fail')
+                }
+                else {
+                        $(this).closest('tr').removeClass('fail')
+                        $(this).closest('tr').addClass('pass')
+                        
+                }
+        });
+        $('td button[name="NO"]').on('click', function () {
+                $(this).closest('tr').removeClass('fail')
+                $(this).closest('tr').removeClass('pass')
+                var $row = $(this).parents('tr');
+                $row.find('select[name="grade"]').val("NA");
+                
+        });
+
+        // GPA Calculate
+        $('#gpa-calc').on('click', function () {
+                alert('Your GPA is: ' + (grossProduct / creditTotal).toFixed(2) + 'Total credit: '+ creditTotal);
+        });
+</script>
 {% endblock %}
