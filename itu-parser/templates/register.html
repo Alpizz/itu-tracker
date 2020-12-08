@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+    <form action="/register" method="post">
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text">
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="password_first" placeholder="Password" type="password">
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="password_second" placeholder="Password (again)" type="password">
+        </div>
+        <div class="form-group">
+            <select class="form-control" name="department">
+                <option disabled="" selected="" value="">Department Code</option>
+                    {% for code in departments.keys() %}
+                        <option value="{{ code }}">{{ code }}</option>
+                    {% endfor %}
+            </select>
+            <br>
+            <a href="http://www.sis.itu.edu.tr/eng/system/department.html" target="_blank">(List of department codes)</a>
+        </div>
+        <button class="btn btn-primary" type="submit">Register</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block title %}Dersler{% endblock %}
+
+{% block main %}
+        <h1>Work in progress.</h1>
+        <h2>Your department is <b>{{ dep_name }} ({{ dep_code }})</b></h2><br>
+        {% for table in tables_list %}
+                <table class="table table-striped">
+                        <thead>
+                                <tr>
+                                        <td>Course Code</td>
+                                        <td>Course Title</td>
+                                        <td>Credit</td>
+                                        <td>Semester</td>
+                                        <td>Success/Fail</td>
+                                </tr>
+                        </thead>
+                        <tbody>
+                                {% for id, (key, value) in enumerate(table.iterrows()) %}
+                                        <tr>
+                                                <td id="code{{key}}">{{ value['Course Code'] }}</td>
+                                                <td>{{ value['Course Title'] }}</td>
+                                                <td id="cred{{key}}">{{ value['Credit'] }}</td>
+                                                <td>{{ value['Semester'] }}</td>
+                                                <td class="btn btn-success">Success</td>
+                                                <td class="btn btn-danger">Fail</td>
+                                        </tr>
+                                {% endfor %}
+                        </tbody>
+                </table>
+        {% endfor %}
+
+{% endblock %}
