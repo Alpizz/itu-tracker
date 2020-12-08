@@ -49,7 +49,7 @@
 </table>
 {% endfor %}
 <script>
-        var creditTotal = [];
+        var creditTotal = 0;
         var grossProduct = 0;
         // Grading system
         $('td select[name="grade"]').on('change', function () {
@@ -64,7 +64,8 @@
 
                 console.log("Credit: " + credit + " Grade: " + grade);
                 
-
+                creditTotal += credit;
+                grossProduct += credit * grade;
                 
 
                 if (selectedGrade == '0') {
@@ -80,14 +81,13 @@
         $('td button[name="NO"]').on('click', function () {
                 $(this).closest('tr').removeClass('fail')
                 $(this).closest('tr').removeClass('pass')
-                var $row = $(this).parents('tr');
                 $row.find('select[name="grade"]').val("NA");
                 
         });
 
         // GPA Calculate
         $('#gpa-calc').on('click', function () {
-                alert('Your GPA is: ' + (grossProduct / creditTotal).toFixed(2) + 'Total credit: '+ creditTotal);
+                alert('Your GPA is: ' + (grossProduct / creditTotal).toFixed(2) + '\nTotal credit: '+ creditTotal);
         });
 </script>
 {% endblock %}
