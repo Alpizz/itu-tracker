@@ -1,12 +1,12 @@
 # ITU Tracker
 
-Parses data from ITU website (www.sis.itu.edu.tr) using Pandas library with web-scraping.
+Parses data from ITU website (http://www.sis.itu.edu.tr/eng) using Pandas library with web-scraping.
 
-With starter code from Finance, users can sign up, login and save their department information
+With starter code from Finance (from CS50x 2020 Week 8 Problem Set, includes helpful files for Flask web application), users can sign up, login and save their department information
 in the database.
-Uses Flask web server, a sqlite3 database and CSS templates from CS50
+
+Uses Flask web server, Jinja2 templating engine, a SQLite3 database for department information, JavaScript for GPA calcuation, and CSS templates.
 
 At main page, users can view their course list throughout their curriculum.
 
-Also, as a work in progress feature, students can save their courses and their GPA can be calculated
-automatically.
+Also, students can mark their letter grades for spesific courses and calculate their GPA.
