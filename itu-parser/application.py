@@ -7,7 +7,7 @@ from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from helpers import apology, login_required, get_departments, get_course_table
+from helpers import apology, login_required, get_departments, get_course_table, initDB
 
 # Configure application
 app = Flask(__name__)
@@ -31,6 +31,10 @@ Session(app)
 
 # Configure CS50 Library to use SQLite database
 db = SQL("sqlite:///students.db")
+
+if not initDB(db):
+    print("DB Connection failed.")
+    raise NotImplementedError
 
 # Get department list as a global list
 department_list = get_departments()

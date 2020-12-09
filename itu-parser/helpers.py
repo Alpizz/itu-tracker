@@ -3,9 +3,15 @@ import requests
 import urllib.parse
 import pandas as pd
 
+from cs50 import SQL
 from flask import redirect, render_template, request, session
 from functools import wraps
 
+
+def initDB(db):
+    """Initialize students.db"""
+    db.execute("CREATE TABLE IF NOT EXISTS 'users' ('id' integer PRIMARY KEY AUTOINCREMENT NOT NULL, 'username' text NOT NULL, 'hash' text NOT NULL, 'department' varchar(4) NOT NULL)")
+    return True
 
 def apology(message, code=400):
     """Render message as an apology to user."""
